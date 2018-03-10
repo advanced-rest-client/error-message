@@ -11,7 +11,7 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 -->
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer/polymer-element.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../arc-icons/arc-icons.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
@@ -38,46 +38,52 @@ Custom property | Description | Default
 
 @group UI Elements
 @element error-message
+@customElement
+@polymer
 @demo demo/index.html
 -->
 <dom-module id="error-message">
   <template>
     <style>
     :host {
-      @apply(--layout-horizontal);
-      @apply(--layout-center);
-      @apply(--error-message);
+      @apply --layout-horizontal;
+      @apply --layout-center;
+      @apply --error-message;
     }
 
     .error-icon {
       width: 128px;
       height: 128px;
       color: var(--error-message-icon-color, rgba(0, 0, 0, 0.56));
-      @apply(--error-message-icon);
+      @apply --error-message-icon;
     }
 
-    .error-desc ::content > * {
-      @apply(--arc-font-subhead);
-      color: var(--error-message-color, --google-red-500);
-      @apply(--error-message-text);
+    .error-desc ::slotted(*) {
+      @apply --arc-font-subhead;
+      color: var(--error-message-color, var(--google-red-500));
+      @apply --error-message-text;
     }
     </style>
     <div>
       <iron-icon class="error-icon" icon="[[icon]]"></iron-icon>
     </div>
     <div class="error-desc">
-      <content></content>
+      <slot></slot>
     </div>
   </template>
   <script>
-  Polymer({
-    is: 'error-message',
-    properties: {
-      icon: {
-        type: String,
-        value: 'arc:sentiment-very-dissatisfied'
-      }
+  class ErrorMessage extends Polymer.Element {
+    static get is() { return 'error-message'; }
+    static get properties() {
+      return {
+        // An icon to render.
+        icon: {
+          type: String,
+          value: 'arc:sentiment-very-dissatisfied'
+        }
+      };
     }
-  });
+  }
+  window.customElements.define(ErrorMessage.is, ErrorMessage);
   </script>
 </dom-module>
