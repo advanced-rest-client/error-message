@@ -1,7 +1,7 @@
 {
   "name": "error-message",
   "description": "A standarized error information",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "license": "Apache-2.0",
   "authors": [
     "The Advanced REST client authors <arc@mulesoft.com>"
