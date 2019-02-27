@@ -1,4 +1,4 @@
-<!--
+/**
 @license
 Copyright 2016 The Advanced REST client authors <arc@mulesoft.com>
 Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -10,12 +10,13 @@ distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
 WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
--->
-<link rel="import" href="../polymer/polymer-element.html">
-<link rel="import" href="../iron-icon/iron-icon.html">
-<link rel="import" href="../arc-icons/arc-icons.html">
-<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
-<!--
+*/
+import {PolymerElement} from '@polymer/polymer/polymer-element.js';
+import {html} from '@polymer/polymer/lib/utils/html-tag.js';
+import '@polymer/iron-icon/iron-icon.js';
+import '@advanced-rest-client/arc-icons/arc-icons.js';
+import '@polymer/iron-flex-layout/iron-flex-layout.js';
+/**
 `<error-message>` A standarized error information
 
 ### Example
@@ -41,9 +42,10 @@ Custom property | Description | Default
 @customElement
 @polymer
 @demo demo/index.html
--->
-<dom-module id="error-message">
-  <template>
+*/
+class ErrorMessage extends PolymerElement {
+  static get template() {
+    return html`
     <style>
     :host {
       @apply --layout-horizontal;
@@ -70,20 +72,17 @@ Custom property | Description | Default
     <div class="error-desc">
       <slot></slot>
     </div>
-  </template>
-  <script>
-  class ErrorMessage extends Polymer.Element {
-    static get is() { return 'error-message'; }
-    static get properties() {
-      return {
-        // An icon to render.
-        icon: {
-          type: String,
-          value: 'arc:sentiment-very-dissatisfied'
-        }
-      };
-    }
+`;
   }
-  window.customElements.define(ErrorMessage.is, ErrorMessage);
-  </script>
-</dom-module>
+
+  static get properties() {
+    return {
+      // An icon to render.
+      icon: {
+        type: String,
+        value: 'arc:sentiment-very-dissatisfied'
+      }
+    };
+  }
+}
+window.customElements.define('error-message', ErrorMessage);
