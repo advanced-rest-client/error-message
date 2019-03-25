@@ -53,10 +53,6 @@ class SampleElement extends PolymerElement {
     <error-message></error-message>
     `;
   }
-
-  _authChanged(e) {
-    console.log(e.detail);
-  }
 }
 customElements.define('sample-element', SampleElement);
 ```
