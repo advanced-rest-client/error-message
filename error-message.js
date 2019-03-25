@@ -15,7 +15,6 @@ import {PolymerElement} from '../../@polymer/polymer/polymer-element.js';
 import {html} from '../../@polymer/polymer/lib/utils/html-tag.js';
 import '../../@polymer/iron-icon/iron-icon.js';
 import '../../@advanced-rest-client/arc-icons/arc-icons.js';
-import '../../@polymer/iron-flex-layout/iron-flex-layout.js';
 /**
 `<error-message>` A standarized error information
 
@@ -31,11 +30,12 @@ import '../../@polymer/iron-flex-layout/iron-flex-layout.js';
 
 Custom property | Description | Default
 ----------------|-------------|----------
-`--error-message` | Mixin applied to the element | `{}`
 `--error-message-icon-color` | Fill color of the icon. Only if an icon is a SVG icon. | `rgba(0, 0, 0, 0.56)`
-`--error-message-icon` | Mixin applied to the icon | `{}`
-`--error-message-text` | Mixin applied to the text message. | `{}`
 `--error-message-color` | Color of the message text. | `--google-red-500`
+`--error-message-background-color` | Background color of the component | ``
+`--arc-font-subhead-font-size` | Font size of the message (theme item) | ``
+`--arc-font-subhead-font-weight` | Font weigth of the message (theme item) | ``
+`--arc-font-subhead-line-height` | Font line height of the message (theme item) | ``
 
 @group UI Elements
 @element error-message
@@ -48,22 +48,33 @@ class ErrorMessage extends PolymerElement {
     return html`
     <style>
     :host {
-      @apply --layout-horizontal;
-      @apply --layout-center;
-      @apply --error-message;
+      display: -ms-flexbox;
+      display: -webkit-flex;
+      display: flex;
+
+      -ms-flex-direction: row;
+      -webkit-flex-direction: row;
+      flex-direction: row;
+
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center;
+
+      background-color: var(--error-message-background-color);
     }
 
     .error-icon {
       width: 128px;
       height: 128px;
       color: var(--error-message-icon-color, rgba(0, 0, 0, 0.56));
-      @apply --error-message-icon;
     }
 
     .error-desc ::slotted(*) {
-      @apply --arc-font-subhead;
+      font-size: var(--arc-font-subhead-font-size);
+      font-weight: var(--arc-font-subhead-font-weight);
+      line-height: var(--arc-font-subhead-line-height);
+
       color: var(--error-message-color, var(--google-red-500));
-      @apply --error-message-text;
     }
     </style>
     <div>
