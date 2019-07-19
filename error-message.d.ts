@@ -10,42 +10,60 @@
 
 
 // tslint:disable:variable-name Describing an API that's defined elsewhere.
+// tslint:disable:no-any describes the API as best we are able today
 
-/**
- * `<error-message>` A standarized error information
- *
- * ### Example
- * ```
- * <error-message icon="warning">
- *   <p>This is a warning!</p>
- * </error-message>
- * ```
- *
- * ### Styling
- * `<error-message>` provides the following custom properties and mixins for styling:
- *
- * Custom property | Description | Default
- * ----------------|-------------|----------
- * `--error-message-icon-color` | Fill color of the icon. Only if an icon is a SVG icon. | `rgba(0, 0, 0, 0.56)`
- * `--error-message-color` | Color of the message text. | `--google-red-500`
- * `--error-message-background-color` | Background color of the component | ``
- * `--arc-font-subhead-font-size` | Font size of the message (theme item) | ``
- * `--arc-font-subhead-font-weight` | Font weigth of the message (theme item) | ``
- * `--arc-font-subhead-line-height` | Font line height of the message (theme item) | ``
- */
-declare class ErrorMessage extends PolymerElement {
+import {LitElement, html, css} from 'lit-element';
+
+declare namespace UiElements {
 
   /**
-   * An icon to render.
+   * `<error-message>` A standarized error information
+   *
+   * ### Example
+   * ```
+   * <error-message icon="warning" iconprefix="myset">
+   *   <p>This is a warning!</p>
+   * </error-message>
+   * ```
+   *
+   * ### Styling
+   * `<error-message>` provides the following custom properties and mixins for styling:
+   *
+   * Custom property | Description | Default
+   * ----------------|-------------|----------
+   * `--error-message-icon-color` | Fill color of the icon. Only if an icon is a SVG icon. | `rgba(0, 0, 0, 0.56)`
+   * `--error-message-color` | Color of the message text. | `--google-red-500`
+   * `--error-message-background-color` | Background color of the component | ``
+   * `--arc-font-subhead-font-size` | Font size of the message (theme item) | ``
+   * `--arc-font-subhead-font-weight` | Font weigth of the message (theme item) | ``
+   * `--arc-font-subhead-line-height` | Font line height of the message (theme item) | ``
    */
-  icon: string|null|undefined;
+  class ErrorMessage extends LitElement {
+    readonly iconValue: String|null;
+
+    /**
+     * An icon to render. Do not use prefix here. Instead use the `iconPrefix`
+     * property.
+     *
+     * Detaults to `sentiment-very-dissatisfied` from ARC icons set.
+     */
+    icon: string|null|undefined;
+
+    /**
+     * Icon prefix from the svg icon set. This can be used to replace the set
+     * without changing the icon.
+     *
+     * Defaults to `arc`.
+     */
+    iconPrefix: string|null|undefined;
+    constructor();
+    render(): any;
+  }
 }
 
 declare global {
 
   interface HTMLElementTagNameMap {
-    "error-message": ErrorMessage;
+    "error-message": UiElements.ErrorMessage;
   }
 }
-
-export {};

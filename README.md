@@ -2,15 +2,14 @@
 
 [![Build Status](https://travis-ci.org/advanced-rest-client/error-message.svg?branch=stage)](https://travis-ci.org/advanced-rest-client/error-message)
 
-[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/advanced-rest-client/error-message)
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/@advanced-rest-client/error-message)
 
-## &lt;error-message&gt;
+# error-message;
 
 Renders standarized error message with icon.
 
-
 ```html
-<error-message icon="arc:sentiment-neutral">
+<error-message iconprefix="arc" icon="sentiment-neutral">
   <p>This is neutral information</p>
 </error-message>
 ```
@@ -41,10 +40,24 @@ npm install --save @advanced-rest-client/error-message
 </html>
 ```
 
-### In a Polymer 3 element
+### In a LitElement template
 
 ```js
-import {PolymerElement, html} from '@polymer/polymer';
+import { LitElement, html } from 'lit-element';
+import '@advanced-rest-client/error-message/error-message.js';
+
+class SampleElement extends LitElement {
+  render() {
+    return html`<error-message></error-message>`;
+  }
+}
+customElements.define('sample-element', SampleElement);
+```
+
+### In a Polymer 3 template
+
+```js
+import { PolymerElement, html } from '@polymer/polymer';
 import '@advanced-rest-client/error-message/error-message.js';
 
 class SampleElement extends PolymerElement {
@@ -57,23 +70,21 @@ class SampleElement extends PolymerElement {
 customElements.define('sample-element', SampleElement);
 ```
 
-### Installation
+## Development
 
 ```sh
 git clone https://github.com/advanced-rest-client/error-message
-cd api-url-editor
+cd error-message
 npm install
-npm install -g polymer-cli
 ```
 
 ### Running the demo locally
 
 ```sh
-polymer serve --npm
-open http://127.0.0.1:<port>/demo/
+npm start
 ```
 
 ### Running the tests
 ```sh
-polymer test --npm
+npm test
 ```

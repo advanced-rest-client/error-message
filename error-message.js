@@ -11,16 +11,15 @@ WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
 License for the specific language governing permissions and limitations under
 the License.
 */
-import {PolymerElement} from '../../@polymer/polymer/polymer-element.js';
-import {html} from '../../@polymer/polymer/lib/utils/html-tag.js';
-import '../../@polymer/iron-icon/iron-icon.js';
-import '../../@advanced-rest-client/arc-icons/arc-icons.js';
+import { LitElement, html, css } from 'lit-element';
+import '@polymer/iron-icon/iron-icon.js';
+import '@advanced-rest-client/arc-icons/arc-icons.js';
 /**
 `<error-message>` A standarized error information
 
 ### Example
 ```
-<error-message icon="warning">
+<error-message icon="warning" iconprefix="myset">
   <p>This is a warning!</p>
 </error-message>
 ```
@@ -37,29 +36,17 @@ Custom property | Description | Default
 `--arc-font-subhead-font-weight` | Font weigth of the message (theme item) | ``
 `--arc-font-subhead-line-height` | Font line height of the message (theme item) | ``
 
-@group UI Elements
+@memberof UiElements
 @element error-message
 @customElement
-@polymer
 @demo demo/index.html
 */
-class ErrorMessage extends PolymerElement {
-  static get template() {
-    return html`
-    <style>
-    :host {
-      display: -ms-flexbox;
-      display: -webkit-flex;
+class ErrorMessage extends LitElement {
+  static get styles() {
+    return css`:host {
       display: flex;
-
-      -ms-flex-direction: row;
-      -webkit-flex-direction: row;
       flex-direction: row;
-
-      -ms-flex-align: center;
-      -webkit-align-items: center;
       align-items: center;
-
       background-color: var(--error-message-background-color);
     }
 
@@ -75,25 +62,52 @@ class ErrorMessage extends PolymerElement {
       line-height: var(--arc-font-subhead-line-height);
 
       color: var(--error-message-color, var(--google-red-500));
-    }
-    </style>
-    <div>
-      <iron-icon class="error-icon" icon="[[icon]]"></iron-icon>
+    }`;
+  }
+  render() {
+    const icon = this.iconValue;
+    return html`<div>
+      <iron-icon class="error-icon" .icon="${icon}"></iron-icon>
     </div>
     <div class="error-desc">
       <slot></slot>
-    </div>
-`;
+    </div>`;
   }
 
   static get properties() {
     return {
-      // An icon to render.
-      icon: {
-        type: String,
-        value: 'arc:sentiment-very-dissatisfied'
-      }
+      /**
+       * An icon to render. Do not use prefix here. Instead use the `iconPrefix`
+       * property.
+       *
+       * Detaults to `sentiment-very-dissatisfied` from ARC icons set.
+       */
+      icon: { type: String },
+      /**
+       * Icon prefix from the svg icon set. This can be used to replace the set
+       * without changing the icon.
+       *
+       * Defaults to `arc`.
+       */
+      iconPrefix: { type: String }
     };
+  }
+  /**
+   * @return {String} Computed value if the icon to be passed to `iron-icon`.
+   * By default it is `arc:sentiment-very-dissatisfied`
+   */
+  get iconValue() {
+    let icon = '';
+    if (this.iconPrefix) {
+      icon = this.iconPrefix + ':';
+    }
+    return icon + this.icon;
+  }
+
+  constructor() {
+    super();
+    this.icon = 'sentiment-very-dissatisfied';
+    this.iconPrefix = 'arc';
   }
 }
 window.customElements.define('error-message', ErrorMessage);
