@@ -1,5 +1,4 @@
 import { fixture, assert } from '@open-wc/testing';
-import { a11ySuite } from '@advanced-rest-client/a11y-suite/index.js';
 import '../error-message.js';
 
 const style = document.createElement('style');
@@ -70,7 +69,10 @@ describe('<error-message>', function() {
     });
   });
 
-  a11ySuite('Normal state', `<error-message>
-    <p id="message">Test message</p>
-  </error-message>`);
+  describe('a11y', () => {
+    it('is accessible', async () => {
+      const element = await basicFixture();
+      await assert.isAccessible(element);
+    });
+  });
 });
